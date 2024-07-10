@@ -21,14 +21,15 @@ export default async function RootLayout({
 }>) {
   const session = await auth()
   // console.log(session)
+  
   return (
     <SessionProvider session={session}>
       <html lang="en">
         <body className={outfit.className} >
           <QueryProvider>
             <SheetProvider />
-            <div className="w-screen h-screen flex flex-col mx-auto">
-              <TaskBoardComponent />
+            <div className="w-screen h-screen flex flex-col mx-auto overflow-x-hidden">
+             {session !== null && <TaskBoardComponent />}
               {children}
             </div>
           </QueryProvider>

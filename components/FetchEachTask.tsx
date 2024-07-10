@@ -22,11 +22,9 @@ const FetchEachTask = ({ task }: Props) => {
     const { onOpen } = useOpenSidebar()
 
 
-
-
     return (
         <div>
-            <Link href={`/${id}`}>
+            <Link href={`/board/${id}`}>
                 <div className={`w-[500px] p-4 ${status === 'WONT_DO' ? 'bg-[#F7D4D3]' : ""} ${status === 'COMPLETED' ? 'bg-[#A0ECB1]' : ""} ${status === 'IN_PROGRESS' ? 'bg-[#F5D565]' : ""}  ${status === 'TODO' ? 'bg-[#E3E8EF]' : ""}  rounded-2xl flex items-center gap-3 float-left cursor-pointer justify-between`} onClick={() => onOpen()}>
                     <div className="flex items-center gap-3">
                         <div className='bg-[#F8FAFC] w-14 h-14 rounded-lg flex justify-center items-center '>

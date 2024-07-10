@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { auth } from "@/auth";
-import { getUserId } from "@/components/getUserId";
 
 const app = new Hono()
   .get("/", async (c) => {

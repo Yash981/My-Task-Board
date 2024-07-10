@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
 import { Input } from './ui/input'
@@ -18,7 +18,7 @@ import { Button } from './ui/button'
 import { Check, Loader2, Trash, X } from 'lucide-react'
 import { useOpenSidebar } from './use-open-sidebar'
 import { useGetTask } from './api/use-get-task'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEditTask } from './api/use-edit-task'
@@ -54,6 +54,8 @@ export type FormValues = z.infer<typeof formSchema>;
 const TaskDetails = (props: Props) => {
     const { onClose } = useOpenSidebar();
     const params = useParams()
+    const router = useRouter()
+    const [isMounted, setIsMounted] = useState(false)
     // console.log(params)
     const GetTask = useGetTask(params?.id as string);
 
@@ -76,6 +78,7 @@ const TaskDetails = (props: Props) => {
             status: "TODO",
         },
     })
+    
     const { setValue, reset } = form
 
     useEffect(() => {
@@ -108,12 +111,14 @@ const TaskDetails = (props: Props) => {
             editTask.mutate(mappedData, {
                 onSuccess: () => {
                     onClose()
+                    router.push(`/`)
                 }
             })
         } else{
             createTask.mutate(mappedData, {
                 onSuccess: () => {
                     onClose();
+                    router.push(`/`)
                 }
             })
         }
@@ -121,11 +126,13 @@ const TaskDetails = (props: Props) => {
     const handleDelete = () => {
         if(!params?.id) {
             onClose();
+            router.push(`/`)
             return
         }
         deleteTask.mutate(undefined, {
             onSuccess: () => {
                 onClose();
+                router.push(`/`)
             }
 
         })
@@ -240,12 +247,12 @@ const TaskDetails = (props: Props) => {
                                 />
                                 <div className="flex justify-end space-x-4 my-auto ">
                                     <Button variant={"secondary"} type='button' onClick={handleDelete} disabled={isPending}>
-                                        {isPending ? "Deleting..." : params?.id ? "Delete" : "Cancel"}
+                                        {deleteTask.isPending ? "Deleting..." : params?.id ? "Delete" : "Cancel"}
                                         {!params?.id ? <X className="ml-2 size-4" /> : <Trash className="ml-2 size-4" />}
 
                                     </Button>
                                     <Button variant={"primary"} disabled={isPending}>
-                                        {isPending ? "Saving..." :  params?.id ?    "Save" : "Create"}
+                                        {editTask.isPending ? "Saving..." :  params?.id ?    "Save" : "Create"}
                                         <Check className="ml-2 size-4" />
                                     </Button>
                                 </div>

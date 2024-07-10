@@ -7,6 +7,7 @@ import Edit from '../public/Images/Edit_duotone.svg'
 import { LogOutIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import { signOut } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 type Props = {}
 
 const TaskBoardComponent = (props: Props) => {
@@ -18,7 +19,10 @@ const TaskBoardComponent = (props: Props) => {
             inputRef.current.focus()
         }
     }
-
+    const handleSignout = () =>{
+        signOut()
+        redirect('/sign-in')
+    }
     return (
         <>
             <section className='mx-auto mt-10'>
@@ -34,7 +38,7 @@ const TaskBoardComponent = (props: Props) => {
                     </div>
                     <div className='p-2 pt-0 mx-auto w-7/12 flex items-center '>
                         <Input placeholder="Search" className='border-none  focus-visible:ring-transparent focus-visible:ring-0 text-lg' type='text' defaultValue={'Tasks to keep organised'} />
-                        <Button variant={'link'} className="cursor-pointer" onClick={() => signOut()}>
+                        <Button variant={'link'} className="cursor-pointer" onClick={handleSignout}>
                             <LogOutIcon />
                         </Button>
                     </div>

@@ -11,6 +11,16 @@ type Props = {}
 export const OpenSidebarSheet = (props: Props) => {
     const { isOpen, onClose } = useOpenSidebar();
     const router = useRouter();
+    const [isMounted, setIsMounted] = React.useState(false);
+    React.useEffect(() => {
+        setIsMounted(true);
+        router.push(`/`);
+
+        return () => {
+            setIsMounted(false);
+        }
+
+    }, [router])
     const handleClose = () => {
         onClose();
         router.push(`/`);
