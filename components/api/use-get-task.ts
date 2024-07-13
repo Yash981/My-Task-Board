@@ -6,7 +6,7 @@ export const useGetTask = (id: string) => {
     enabled: !!id,
     queryKey: ["task", { id }],
     queryFn: async () => {
-        const response = await client.board[":id"].$get({ param: { id } });
+        const response = await client.api.board[":id"].$get({ param: { id } });
         if (!response.ok) {
           throw new Error("Failed to fetch task");
         }
