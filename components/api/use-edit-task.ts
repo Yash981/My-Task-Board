@@ -3,14 +3,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { InferRequestType, InferResponseType } from "hono";
 
-type ResponseType = InferResponseType<typeof client.api.board[":id"]["$patch"]>;
-type RequestType = InferRequestType<typeof client.api.board[":id"]["$patch"]>["json"];
+type ResponseType = InferResponseType<typeof client.board[":id"]["$patch"]>;
+type RequestType = InferRequestType<typeof client.board[":id"]["$patch"]>["json"];
 
 export const useEditTask = (id?:string) => {
     const queryClient = useQueryClient();
     const mutation = useMutation<ResponseType, Error, RequestType>({
       mutationFn: async (json) => {
-        const response = await client.api.board[":id"]["$patch"]({ 
+        const response = await client.board[":id"]["$patch"]({ 
           json,
           param:{ id }
          });

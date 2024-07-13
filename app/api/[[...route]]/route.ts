@@ -5,7 +5,7 @@ import board from './board';
 
 // export const runtime = "edge";
 
-const app = new Hono().basePath("/api");
+const app = new Hono().basePath("/");
 
 const routes = app
     .route('/board',board)

@@ -5,7 +5,7 @@ export const useGetTasks = () => {
   const query = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const response = await client.api.board.$get();
+      const response = await client.board.$get();
       if (!response.ok) {
         throw new Error("Failed to fetch tasks");
       }
