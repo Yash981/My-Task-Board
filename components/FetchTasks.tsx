@@ -21,7 +21,7 @@ const FetchTasks = (props: Props) => {
     const TasksData = TaskQuery.data;
     const length = TasksData?.tasks.length ?? 5
     return (
-        <section className='flex justify-center mx-auto flex-col gap-3 '>
+        <section className='flex justify-center mx-auto flex-col gap-3 w-[500px] '>
             {
                 TaskQuery.isLoading &&
                  <>

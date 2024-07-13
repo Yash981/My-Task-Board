@@ -28,7 +28,7 @@ export default async function RootLayout({
         <body className={outfit.className} >
           <QueryProvider>
             <SheetProvider />
-            <div className="w-screen h-screen flex flex-col mx-auto overflow-x-hidden">
+            <div className="w-screen h-screen flex flex-col justify-center overflow-x-hidden">
              {session !== null && <TaskBoardComponent />}
               {children}
             </div>
