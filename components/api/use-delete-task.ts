@@ -2,6 +2,7 @@ import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {  InferResponseType } from "hono";
+import { toast } from "sonner";
 type ResponseType = InferResponseType<typeof client.api.board[":id"]["$delete"]>;
 
 export const useDeleteTask = (id?:string) => {
@@ -12,13 +13,14 @@ export const useDeleteTask = (id?:string) => {
         param:{ id }
        });
       if (!response.ok) {
-        throw new Error("Failed to create account");
+        toast.error("Failed to create Task");
+        throw new Error("Failed to create Task");
       }
       return await response.json();
     },
     onSuccess: () => {
-    //   toast.success("Account deleted successfully");
-      console.log("success deleted");
+      toast.success("Task deleted successfully");
+      // console.log("success deleted");
       queryClient.invalidateQueries({
         queryKey: ["task", { id }],
       });
@@ -27,7 +29,7 @@ export const useDeleteTask = (id?:string) => {
       });
     },
     onError: () => {
-    //   toast.error("Failed to Delete account");
+      toast.error("Failed to Delete Task");
       console.log("error");
     },
   });

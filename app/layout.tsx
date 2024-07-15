@@ -6,6 +6,9 @@ import { QueryProvider } from "@/providers/query-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import TaskBoardComponent from "@/components/TaskBoardComponent";
+import { Toaster } from "@/components/ui/sonner"
+import { redirect } from "next/navigation";
+
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -20,7 +23,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth()
-  // console.log(session)
   
   return (
     <SessionProvider session={session}>
@@ -28,6 +30,7 @@ export default async function RootLayout({
         <body className={outfit.className} >
           <QueryProvider>
             <SheetProvider />
+            <Toaster richColors position="top-center"/>
             <div className="w-screen h-screen flex flex-col justify-center overflow-x-hidden">
              {session !== null && <TaskBoardComponent />}
               {children}

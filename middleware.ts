@@ -8,11 +8,13 @@
 //   const isLoggedIn = !!req.auth
 //   const isHomeRoute = nextUrl.pathname === "/";
 //   const isSignInRoute = nextUrl.pathname === "/sign-in";
-
-//   if (isLoggedIn && isSignInRoute) {
+//   // const checks = ['/api','/board']
+//   // const isApiRoute = checks.some((check) => nextUrl.pathname.startsWith(check));
+//   console.log(isLoggedIn, isHomeRoute, isSignInRoute, nextUrl.pathname, nextUrl, "middleware");
+//   if ((isLoggedIn && isHomeRoute) || (isLoggedIn && isSignInRoute)) {
 //     return Response.redirect(new URL('/', nextUrl));
 //   }
-//   if (!isLoggedIn && isHomeRoute) {
+//   else if ((!isLoggedIn && isHomeRoute) || (!isLoggedIn && isSignInRoute)) {
 //     return Response.redirect(new URL('/sign-in', nextUrl));
 //   }
 

@@ -1,6 +1,7 @@
 import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
+import { toast } from "sonner";
 
 type RequestType = InferRequestType<typeof client.api.board.$post>["json"];
 type ResponseType = InferResponseType<typeof client.api.board.$post>;
@@ -16,14 +17,14 @@ export const useCreateTask = () => {
         return await response.json();
       },
       onSuccess: () => {
-        // toast.success("Account created");
+        toast.success("Task created");
         console.log("success");
         queryClient.invalidateQueries({
           queryKey: ["tasks"],
         });
       },
       onError: () => {
-        // toast.error("Failed to create account");
+        toast.error("Failed to create Task");
         console.log("error");
       },
     });

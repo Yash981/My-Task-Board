@@ -6,16 +6,12 @@ import { auth } from "@/auth";
 
 const app = new Hono()
   .get("/", async (c) => {
-    // console.log('request received')
     const session = await auth();
-    // console.log(session)
-    // const okay = await getUserId()
-    // console.log(okay)
+ 
     if (!session) {
       console.log("Authentication failed")
       return c.redirect("/sign-in");
     }
-    // console.log('db check',session?.user?.id)
     try {
       const tasks = await db.task.findMany({
         where: {
@@ -25,7 +21,6 @@ const app = new Hono()
           createdAt: "desc",
         },
       });
-      // console.log("Tasks fetched successfully:", tasks);
       return c.json({ tasks });
     } catch (error) {
       console.error("Database query failed:", error);
